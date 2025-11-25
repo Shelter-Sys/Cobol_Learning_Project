@@ -24,6 +24,7 @@
        WORKING-STORAGE SECTION.
        01 ws-file-status PIC XX VALUE SPACES.
        
+       
        PROCEDURE DIVISION.
        BEGIN.
            OPEN OUTPUT contacts
@@ -41,14 +42,35 @@
            WRITE contact-record
        
            MOVE 2 TO ID_Contact
-           MOVE "Alice" TO First_Name
+           MOVE "Alice" TO First_Name.
            MOVE "Martin" TO Last_Name
            MOVE "0607080910" TO Phone
            MOVE "alice.martin@mail.com" TO Email
            MOVE "Deuxième contact" TO Description
            WRITE contact-record
-       
+
+           MOVE 3 TO ID_Contact
+           MOVE "Bob" TO First_Name.
+           MOVE "Richard" TO Last_Name
+           MOVE "0656219845" TO Phone
+           MOVE "bob.richard@mail.com" TO Email
+           MOVE "Ce mec est horible quoi" TO Description
+           WRITE contact-record
+
            CLOSE contacts
+
+           OPEN INPUT contacts.
+           PERFORM UNTIL ws-file-status = "10"  *> code fin fichier
+               READ contacts NEXT
+                   AT END
+                   MOVE "10" TO ws-file-status
+               NOT AT END
+                   DISPLAY "Contact : " First_Name " " Last_Name " " Pho
+      -    ne " " Email
+           END-READ
+           END-PERFORM.
+           CLOSE contacts
+           
            DISPLAY "Fichier initialisé avec deux enregistrements."
            STOP RUN.
        
