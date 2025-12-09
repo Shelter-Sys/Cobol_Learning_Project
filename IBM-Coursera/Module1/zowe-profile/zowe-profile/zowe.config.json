@@ -1,0 +1,55 @@
+{
+    "$schema": "./zowe.schema.json",
+    "profiles": {
+        "LearnCOBOL": {
+            "profiles": {
+                "zosmf": {
+                    "type": "zosmf",
+                    "properties": {
+                        "port": 10443
+                    }
+                },
+
+            }
+        },
+	"zxplore":{
+	    "type":"zosmf",
+	    "properties":{
+		"port": 10443
+	    }
+	},
+        "zxploreTSO": {
+            "type": "tso",
+                "properties": {
+		    "account": "FB3",
+		    "codepage": 1047,
+                    "port": 623
+                }
+        },
+        "zxploreSSH": {
+            "type": "ssh",
+            "properties": {
+                "port": 22
+            }
+        },
+        "zxploreBASE": {
+            "type": "base",
+            "properties": {
+		"host": "204.90.115.200",
+                "rejectUnauthorized": false
+            },
+            "secure": [
+                "user",
+                "password"
+	    ]
+        }
+    },
+    "autoStore": true,
+    "defaults": {
+        "zosmf": "zxplore",
+	"tso": "zxploreTSO",
+	"ssh": "zxploreSSH",
+        "base": "zxploreBASE"
+    },
+    "plugins": []
+}
